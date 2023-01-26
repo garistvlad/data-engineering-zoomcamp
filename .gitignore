@@ -1,0 +1,11 @@
+.env
+
+.pycache
+.DS_Store
+*.csv
+
+gcp-de-zoomcamp-sa.json
+
+terraform.*
+.terraform.lock.hcl
+.terraform

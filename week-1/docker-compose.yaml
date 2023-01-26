@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ny_taxi
+    volumes:
+      - ./db/ny_taxi_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5423:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "root@root.com"
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./db/pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+
+  pipeline:
+    build: data_pipeline/
+    depends_on:
+      - db
