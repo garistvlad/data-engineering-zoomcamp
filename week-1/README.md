@@ -31,7 +31,9 @@
         --tablename='taxi_zone'
     ```
     
-### My solution for [Assignment #1](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/week_1_docker_sql/homework.md)
+### Solution
+
+[tasks](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/week_1_docker_sql/homework.md)
 
 1. 
 ```shell
