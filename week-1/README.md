@@ -34,18 +34,18 @@
 ### My solution for [Assignment #1](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/week_1_docker_sql/homework.md)
 
 1. 
-```
+```shell
 docker build --help
 ```
 
-```
+```shell
 ...
 --iidfile string          Write the image ID to the file
 ...
 ```
 
 2. 
-```
+```shell
 Package    Version
 ---------- -------
 pip        22.0.4
@@ -63,7 +63,7 @@ where true
 ```
 
 4.
-```
+```sql
 select lpep_pickup_datetime::date as d_date,
        max(trip_distance) as max_tip_distance
 from green_trip_data
@@ -73,7 +73,7 @@ limit 1
 ```
 
 5.
-```
+```sql
 select passenger_count,
        count(*) as trip_cnt
 from green_trip_data
@@ -85,7 +85,7 @@ order by 1
 ```
 
 6.
-```
+```sql
 select
     gtd.pulocationid,
     pu_tz.zone as pu_zone,
@@ -104,7 +104,7 @@ limit 1
 ```
 
 7.
-```
+```shell
 google_bigquery_dataset.dataset: Creating...
 google_storage_bucket.data-lake-bucket: Creating...
 google_bigquery_dataset.dataset: Creation complete after 1s [id=projects/hip-plexus-374912/datasets/trips_data_all]
