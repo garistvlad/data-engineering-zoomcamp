@@ -1,8 +1,10 @@
+venv
 .env
 
 .pycache
 .DS_Store
 *.csv
+*.parquet
 
 gcp-de-zoomcamp-sa.json
 

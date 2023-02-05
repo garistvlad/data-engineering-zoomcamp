@@ -1,0 +1,63 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-gcs-to-bq'
+###
+name: adhoc
+description: ETL flow to load data from Google Cloud Storage Bucket to BigQuery
+version: 752aa23bb445031ff0fbeef329654390
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags: []
+parameters: {
+  "taxi_color": "yellow",
+  "years": [2019],
+  "months": [2,3]
+}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-gcs-to-bq
+manifest_path: null
+storage: null
+path: /Users/vgarist/Education/data-engineering-zoomcamp/home-assignments/week-2/prefect-src
+entrypoint: flows/etl_gcs_to_bq.py:etl_gcs_to_bq
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    taxi_color:
+      title: taxi_color
+      position: 0
+      type: string
+    years:
+      title: years
+      position: 1
+      type: array
+      items:
+        type: integer
+    months:
+      title: months
+      position: 2
+      type: array
+      items:
+        type: integer
+  required:
+  - taxi_color
+  - years
+  - months
+  definitions: null
+timestamp: '2023-02-05T17:47:43.774542+00:00'
