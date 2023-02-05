@@ -153,6 +153,36 @@ How many rows were processed by the script?
 - 190,225
 
 
+**Answer**
+
+- Create GitHub block via `Prefect Orion UI`
+- Create deployment using previously specified GitHub block. You could find deployment source code [here](./prefect-src/deployments/github_deployment_web_to_gcs.py)
+```shell
+python ./deployments/github_deployment_web_to_gcs.py
+```
+- Run an agent:
+```shell
+prefect agent start -q 'github'
+```
+
+- Specify parameters needed
+```json
+{
+  "taxi_color": "green",
+  "year": 2020,
+  "month": 11
+}
+```
+
+- Run deployment and check log
+```
+...
+00:12:58.863 | INFO    | Task run 'web_to_pandas-0' - Loaded 88,605 rows to pandas DataFrame.
+...
+00:12:59.331 | INFO    | Task run 'pandas_to_parquet-0' - There are 88,605 rows saved to green_taxi_trips_2020_11.parquet
+...
+00:13:01.170 | INFO    | Task run 'parquet_to_gcs_bucket-0' - Successfully loaded to GCS Bucket. Path: `taxi/green_taxi_trips_2020_11.parquet`
+```
 
 ## Question 5. Email or Slack notifications
 
@@ -182,6 +212,25 @@ How many rows were processed by the script?
 - `728,390`
 - `514,392`
 
+**Answer**
+
+- Setup Slack notification via `Prefect Orion UI`
+- Specify required flow parameters:
+```json
+{
+  "taxi_color": "green",
+  "year": 2019,
+  "month": 4
+}
+```
+
+- Run workflow and check the result:
+```
+...
+00:27:11.753 | INFO    | Task run 'pandas_to_parquet-0' - There are 514,392 rows saved to green_taxi_trips_2019_04.parquet
+...
+```
+
 
 ## Question 6. Secrets
 
@@ -192,6 +241,10 @@ Prefect Secret blocks provide secure, encrypted storage in the database and obfu
 - 8
 - 10
 
+**Answer**
+
+- Password example: `1234567890`
+- Masked password in the UI: `********` | 8 symbols
 
 ## Submitting the solutions
 
@@ -200,7 +253,3 @@ Prefect Secret blocks provide secure, encrypted storage in the database and obfu
 
 Deadline: 6 February (Monday), 22:00 CET
 
-
-## Solution
-
-We will publish the solution here
