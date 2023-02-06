@@ -1,6 +1,8 @@
 ## Week 2 Homework
 
-The goal of this homework is to familiarise users with workflow orchestration and observation. 
+My versions of ETL flows source code could be found here:
+- [Web to Google-Cloud-Storage](./prefect-src/flows/etl_web_to_gcs.py)
+- [Google-Cloud-Storage to BigQuery](./prefect-src/flows/etl_gcs_to_bq.py)
 
 
 ## Question 1. Load January 2020 data
