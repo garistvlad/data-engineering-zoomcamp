@@ -233,10 +233,3 @@ OPTIONS (
 select count(*)
 from `nytaxi.external_fhv_taxi_trips_2019`
 ```
-
-## Submitting the solutions
-
-* Form for submitting: https://forms.gle/rLdvQW2igsAT73HTA
-* You can submit your homework multiple times. In this case, only the last submission will be used. 
-
-Deadline: 13 February (Monday), 22:00 CET
