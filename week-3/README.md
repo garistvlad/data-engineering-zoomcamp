@@ -3,6 +3,7 @@
 The main artefacts related to this home assignment:
 - BigQuery supplementary queries: [bq-queries.sql](./bigquery/bq-queries.sql)
 - Prefect data pipeline, which loads `parquet` files to Google Cloud Storage: [etl_web_to_gcs.py](./data-pipeline/flow/etl_web_to_gcs.py)
+- (Optional) BigQuery ML tutorial supplementary queries: [bq-ml-tutorial.sql](./bigquery/bq-ml-tutorial.sql)
 
 <b>SETUP:</b></br>
 Create an external table using the fhv 2019 data. </br>
