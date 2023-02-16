@@ -4,9 +4,11 @@ venv
 .pycache
 .DS_Store
 *.csv
+*.csv.gz
 *.parquet
 
 gcp-de-zoomcamp-sa.json
+data-engineering-zoomcamp-dbt-keys.json
 
 terraform.*
 .terraform.lock.hcl
