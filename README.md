@@ -5,4 +5,4 @@ Home assignments related to [Data-Engineering-Zoomcamp Course 2023](https://gith
 - `Week-1`: GCP, Docker, Postgres, Terraform | [Assignment-1](./week-1)
 - `Week-2`: Workflow orchestration with Prefect | [Assignment-2](./week-2)
 - `Week-3`: Data Warehouse and BigQuery | [Assignment-3](./week-3)
-- `Week-4`: DBT | [Assignment-4](./week-4)
+- `Week-4`: Analytics engineering with DBT | [Assignment-4](./week-4)
