@@ -1,23 +1,8 @@
 ## Week 4 Homework 
 
-In this homework, we'll use the models developed during the week 4 videos and enhance the already presented dbt project using the already loaded Taxi data for fhv vehicles for year 2019 in our DWH.
-
-This means that in this homework we use the following data [Datasets list](https://github.com/DataTalksClub/nyc-tlc-data/)
-* Yellow taxi data - Years 2019 and 2020
-* Green taxi data - Years 2019 and 2020 
-* fhv data - Year 2019. 
-
-We will use the data loaded for:
-
-* Building a source table: `stg_fhv_tripdata`
-* Building a fact table: `fact_fhv_trips`
-* Create a dashboard 
-
-If you don't have access to GCP, you can do this locally using the ingested data from your Postgres database
-instead. If you have access to GCP, you don't need to do it for local Postgres -
-only if you want to.
-
-> **Note**: if your answer doesn't match exactly, select the closest option 
+Related artefacts:
+- ETL pipeline to load data from WEB to Google Cloud Storage: [etl_web_to_gcs.py](./data-pipeline/flow/etl_web_to_gcs.py)
+- DBT project with all the models and seeds: [DBT-project](./dbt-projects)
 
 ### Question 1:
 
@@ -133,10 +118,3 @@ WHERE true
 group by 1
 order by 2 desc
 ```
-
-## Submitting the solutions
-
-* Form for submitting: https://forms.gle/6A94GPutZJTuT5Y16
-* You can submit your homework multiple times. In this case, only the last submission will be used. 
-
-Deadline: 25 February (Saturday), 22:00 CET
