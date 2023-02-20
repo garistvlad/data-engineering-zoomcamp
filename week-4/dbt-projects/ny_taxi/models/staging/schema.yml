@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: staging
+    database: hip-plexus-374912
+    schema: taxi_trips
+
+    tables:
+      - name: green_trips
+      - name: yellow_trips
+      - name: fhv_trips
+
+models:
+  - name: stg_green_trips
+    description: "Green taxi trips."
+
+  - name: stg_yellow_trips
+    description: "Yellow taxi trips"
+
+  - name: stg_fhv_trips
+    description: "FHV taxi trips"
