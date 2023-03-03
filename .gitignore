@@ -4,9 +4,11 @@ logs
 
 .pycache
 .DS_Store
+.ipynb_checkpoints
 *.csv
 *.csv.gz
 *.parquet
+parquet
 
 gcp-de-zoomcamp-sa.json
 data-engineering-zoomcamp-dbt-keys.json
