@@ -217,8 +217,3 @@ ORDER BY 2 DESC
 LIMIT 10
 """).show()
 ```
-
-
-## Submitting the solutions
-
-* Form for submitting: https://forms.gle/EcSvDs6vp64gcGuD8
