@@ -9,6 +9,7 @@ logs
 *.csv.gz
 *.parquet
 parquet
+*.log
 
 gcp-de-zoomcamp-sa.json
 data-engineering-zoomcamp-dbt-keys.json

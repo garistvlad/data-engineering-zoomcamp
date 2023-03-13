@@ -7,3 +7,4 @@ Home assignments related to [Data-Engineering-Zoomcamp Course 2023](https://gith
 - `Week-3`: Data Warehouse and BigQuery | [Assignment-3](./week-3)
 - `Week-4`: Analytics engineering with DBT | [Assignment-4](./week-4)
 - `Week-5`: Batch Processing with Spark | [Assignment-5](./week-5)
+- `Week-6`: Stream Processing with Kafka | [Assignment-6](./week-6)
