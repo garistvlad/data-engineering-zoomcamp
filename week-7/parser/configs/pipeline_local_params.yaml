@@ -1,0 +1,17 @@
+raw_data_dir: /Users/vgarist/Education/data-engineering-zoomcamp/home-assignments/week-7/airflow/data/raw
+processed_data_dir: /Users/vgarist/Education/data-engineering-zoomcamp/home-assignments/week-7/airflow/data/processed
+# names for folders
+advertisements_full_data_dir_name: ads-full
+advertisements_incremental_data_dir_name: ads-incremental
+# names for files
+cities_filename: cities.parquet
+districts_filename: districts.parquet
+rubrics_filename: rubrics.parquet
+rubric_features_filename: rubric_features.parquet
+users_filename: users.parquet
+images_filename: images.parquet
+advertisements_filename: advertisements.parquet
+image_to_advertisement_mapping_filename: image_to_advertisement_mapping.parquet
+# web parser params
+web_page_size: 100
+num_retries: 3

@@ -3,9 +3,11 @@ logs
 .env
 
 .pycache
+__pycache__
 .DS_Store
 .ipynb_checkpoints
 *.csv
+*.json
 *.csv.gz
 *.parquet
 parquet

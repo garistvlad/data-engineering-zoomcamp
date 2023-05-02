@@ -1,0 +1,13 @@
+bazaraki:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      keyfile: /usr/app/dbt/gcp-credentials-for-gcp/data-engineering-zoomcamp-dbt-keys.json
+      project: hip-plexus-374912
+      dataset: bazaraki
+      threads: 1
+      timeout_seconds: 300
+      location: europe-west4
+      priority: interactive

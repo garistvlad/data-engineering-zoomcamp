@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: bazaraki
+    description: Data parsed directly from bazaraki API
+    tables:
+      - name: external_city
+        description: CY city
+      - name: external_district
+        description: CY district associated with some city
+      - name: external_rubric
+        description: Rubrics associated with realty advertising
+      - name: external_rubric_feature
+        description: Feature set for a selected rubric
+      # full parsing tables:
+      - name: external_advertisement_full
+        description: All the realty advertisements parsed
+      - name: external_image_to_advertisement_mapping_full
+        description: Image to advertisement mapping
+      - name: external_image_full
+        description: Images from ads
+      - name: external_user_full
+        description: Users from ads
+      # incremental parsing tables:
+      - name: external_advertisement_incremental
+        description: All the realty advertisements parsed
+      - name: external_image_to_advertisement_mapping_incremental
+        description: Image to advertisement mapping
+      - name: external_image_incremental
+        description: Images from ads
+      - name: external_user_incremental
+        description: Users from ads
