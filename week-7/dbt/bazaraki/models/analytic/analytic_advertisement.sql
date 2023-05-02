@@ -17,7 +17,6 @@ select
   end as advertisement_type,
   ad.created_dt as created_time,
   ad.raise_dt as published_time,
-  ad.attrs,
   ad.title,
   ad.description,
   ad.price,

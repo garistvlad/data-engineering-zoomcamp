@@ -76,13 +76,23 @@ with DAG(
             """,
         **docker_default_params
     )
+
     t4 = FileSensor(
         task_id="check-processed-data-exists",
         filepath=Path(PROCESSED_DATA_DIR, "ads-incremental"),
         fs_conn_id=FS_CONNECTIO_ID
     )
 
-    t5 = LocalFilesystemToGCSOperator(
+    t5 = DockerOperator(
+        task_id='parser-process-attributes-incremental',
+        command=f"""
+            python3 src/etl_process_advertisement_attributes.py \
+                --pipeline_params_filepath="configs/pipeline_params.yaml"
+            """,
+        **docker_default_params
+    )
+
+    t6 = LocalFilesystemToGCSOperator(
         task_id="load-parquet-ads-to-gcp",
         src=f"{Path(PROCESSED_DATA_DIR, 'ads-incremental')}/*.parquet",
         dst="parsed-from-bazaraki/ads-incremental/",
@@ -91,14 +101,23 @@ with DAG(
         gzip=False,
     )
 
-    t6 = list()
+    t7 = LocalFilesystemToGCSOperator(
+        task_id="load-parquet-attrs-to-gcp",
+        src=f"{Path(PROCESSED_DATA_DIR, 'features-incremental')}/*.parquet",
+        dst="parsed-from-bazaraki/features-incremental/",
+        bucket="bazaraki-bucket",
+        gcp_conn_id=GCP_CONNECTION_ID,
+        gzip=False,
+    )
+
+    t8 = list()
     for parquet_filename, table_name in [
         ("advertisements.parquet", "bazaraki.external_advertisement_incremental"),
         ("image_to_advertisement_mapping.parquet", "bazaraki.external_image_to_advertisement_mapping_incremental"),
         ("images.parquet", "bazaraki.external_image_incremental"),
         ("users.parquet", "bazaraki.external_user_incremental")
     ]:
-        t6.append(
+        t8.append(
             BigQueryExecuteQueryOperator(
                 task_id=f"bq-create-{table_name}",
                 sql=f"""
@@ -116,7 +135,7 @@ with DAG(
             )
         )
 
-    t7 = DockerOperator(
+    t9 = DockerOperator(
         task_id='dbt-create-stg-tables',
         command=f"""
             dbt run --project-dir bazaraki \
@@ -138,7 +157,7 @@ with DAG(
         ]
     )
 
-    t8 = BigQueryTableExistenceSensor(
+    t10 = BigQueryTableExistenceSensor(
         task_id="bq-check-table-created",
         project_id=GCP_PROJECT_ID,
         dataset_id="bazaraki",
@@ -146,7 +165,7 @@ with DAG(
         gcp_conn_id=GCP_CONNECTION_ID,
     )
 
-    t9 = DockerOperator(
+    t11 = DockerOperator(
         task_id='dbt-update-core-tables',
         command=f"""
         dbt run \
@@ -169,7 +188,7 @@ with DAG(
         ]
     )
 
-    t10 = DockerOperator(
+    t12 = DockerOperator(
         task_id='dbt-update-analytic-tables',
         command=f"""
         dbt run \
@@ -191,4 +210,26 @@ with DAG(
         ]
     )
 
-    t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10
+    t13 = list()
+    # TODO: replace hardcoded list of rubrics:
+    for rubric_id in [678, 3528, 2405, 141, 2790, 3303, 142, 681, 3529, 2408, 3530, 2191, 434, 3531]:
+        table_name = f"bazaraki.external_features_rubric_{rubric_id}_incremental"
+        t13.append(
+            BigQueryExecuteQueryOperator(
+                task_id=f"bq-create-{table_name}",
+                sql=f"""
+                    CREATE OR REPLACE EXTERNAL TABLE `{table_name}`
+                    OPTIONS (
+                        format="PARQUET",
+                        uris=[
+                        'gs://bazaraki-bucket/parsed-from-bazaraki/features-incremental/rubric_{rubric_id}.parquet'
+                        ]
+                    )
+                    """,
+                use_legacy_sql=False,
+                allow_large_results=True,
+                gcp_conn_id=GCP_CONNECTION_ID,
+            )
+        )
+
+    t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13

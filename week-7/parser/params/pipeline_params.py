@@ -12,6 +12,9 @@ class PipelineParams:
     # names for folders
     advertisements_full_data_dir_name: str
     advertisements_incremental_data_dir_name: str
+    # feature folder names:
+    ad_features_full_data_dir_name: str
+    ad_features_incremental_data_dir_name: str
     # names for files
     cities_filename: str
     districts_filename: str

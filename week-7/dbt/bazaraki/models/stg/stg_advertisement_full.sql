@@ -13,7 +13,6 @@ select
     currency,
     created_dt,
     raise_dt,
-    attrs,
     owner_advert_count,
     phone_hide,
     coordinates,
