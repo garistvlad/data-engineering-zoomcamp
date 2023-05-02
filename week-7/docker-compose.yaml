@@ -1,0 +1,49 @@
+# Just a DEBUG composer to experiment with pipeline steps
+services:
+
+  # Python scripts to load & parse data from Bazaraki
+  parser-base:
+    build: ./parser
+    image: garistvlad/bazaraki-parser
+    volumes:
+      - ./parser:/parser
+
+  parser-load-masterdata:
+    image: garistvlad/bazaraki-parser
+    volumes:
+      - ./parser:/parser
+    entrypoint: [ "python3", "src/etl_load_masterdata_from_web_to_parquet.py", "--pipeline_params_filepath=configs/pipeline_params.yaml" ]
+
+  parser-process-rubrics-and-features:
+    image: garistvlad/bazaraki-parser
+    volumes:
+      - ./parser:/parser
+    entrypoint: [ "python3", "src/etl_process_rubrics_and_features.py", "--pipeline_params_filepath=configs/pipeline_params.yaml" ]
+
+  parser-process-cities-and-districts:
+    image: garistvlad/bazaraki-parser
+    volumes:
+      - ./parser:/parser
+    entrypoint: [ "python3", "src/etl_process_cities_and_districts.py", "--pipeline_params_filepath=configs/pipeline_params.yaml" ]
+
+  parser-load-advertisements:
+    image: garistvlad/bazaraki-parser
+    volumes:
+      - ./parser:/parser
+    # there could be --full flag also
+    entrypoint: [ "python3", "src/etl_load_ads_from_web_to_parquet.py", "--pipeline_params_filepath=configs/pipeline_params.yaml" ]
+
+  parser-process-advertisements:
+    image: garistvlad/bazaraki-parser
+    volumes:
+      - ./parser:/parser
+    # there could be --full flag also
+    entrypoint: [ "python3", "src/etl_process_advertisements.py", "--pipeline_params_filepath=configs/pipeline_params.yaml" ]
+
+  # DBT command line interface to debug DBT server
+  dbt-cli:
+    build: ./dbt/.
+    image: garistvlad/bazaraki-dbt
+    entrypoint: ["/bin/bash"]
+    volumes:
+      - ./dbt:/usr/app/dbt

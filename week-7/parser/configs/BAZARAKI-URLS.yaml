@@ -1,0 +1,7 @@
+# https://www.bazaraki.com/
+cities: "https://www.bazaraki.com/api/items/cities/"
+districts: "https://www.bazaraki.com/api/items/all_cities_districts/"
+rubrics: "https://www.bazaraki.com/api/items/rubrics/"
+realty_rubrics: "https://www.bazaraki.com/api/items/rubrics/19/"
+# ads: "https://www.bazaraki.com/api/items/?rubric=19&ordering=oldest&page=1&page_size=10"
+ads: "https://www.bazaraki.com/api/items/"
