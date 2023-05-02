@@ -3,6 +3,9 @@ processed_data_dir: /opt/airflow/data/processed
 # names for folders
 advertisements_full_data_dir_name: ads-full
 advertisements_incremental_data_dir_name: ads-incremental
+# feature folders
+ad_features_full_data_dir_name: features-full
+ad_features_incremental_data_dir_name: features-incremental
 # names for files
 cities_filename: cities.parquet
 districts_filename: districts.parquet
