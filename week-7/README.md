@@ -1,6 +1,6 @@
 # Course Project: Full data engineering pipeline
 
-## CY Realty Advertisement Parsing
+## CY Realty Advertisements Parsing
 
 ### Problem statement
 
@@ -63,7 +63,7 @@ DBT was selected as a data transformation tool inside DWH. There are the followi
 ### Dashboard (Looker Studio)
 
 Looker Data Studio was chosen as a reporting tool because it's free, works without installation and could easily be integrated with BigQuery.<br>
-Dashboard could be found [here](https://lookerstudio.google.com/reporting/2744708c-a405-4b97-82a6-205c0cd78016/page/ilrND) (public):
+Dashboard could be found [here](https://lookerstudio.google.com/reporting/2744708c-a405-4b97-82a6-205c0cd78016/page/ilrND) (public).
 
 ![Dashboard](screenshots/looker-studio-dashboard.png)
 
@@ -72,5 +72,49 @@ Dashboard could be found [here](https://lookerstudio.google.com/reporting/274470
 
 To reproduce the project launch you should do the following:
 - Configure VM Instance on Google Cloud. Login to the instance and clone this repository
-- Install docker and docker-compose inside VM Instance
-- 
+- Configure BigQuery dataset and Cloud Storage instance through applying Terraform config:
+
+```shell
+# go to terraform folder
+cd ./terraform
+
+# initialize terraform
+terraform init
+
+# review plan
+terraform plan
+
+# apply config
+terraform apply
+```
+
+- Install docker and docker-compose inside your VM Instance. To avoid access level bug with DockerOperator launching by Airflow do this ([stackoverflow-link](https://stackoverflow.com/questions/62499661/airflow-dockeroperator-fails-with-permission-denied-error)):
+
+```shell
+chmod 666 /var/run/docker.sock
+```
+- Create google service account with access to BigQuery, Cloud Storage and VM Instance. I personally create two separate service accounts (but it's not mandatory, you can use one):
+  - first credentials were added [here](./dbt/gcp-credentials-for-gcp) for dbt. Filename `data-engineering-zoomcamp-dbt-keys.json`
+  - and [here](./gcp-credentials) for other google cloud services. Filename `gcp-de-zoomcamp-sa.json`
+- Add new [firewall rule](https://cloud.google.com/firewall/docs/firewalls) in Google Cloud Network to allow HTTP connections for specific port (`8080` in my case, default for Airflow UI)
+- Launch Airflow and check that dags are visible from web interface
+
+```shell
+# go to airflow folder
+cd ./airflow
+
+# init airflow db
+docker-compose up airflow-init
+
+# run all the related containers
+docker-compose up -d --build
+```
+
+Web interface should look like as follows:
+
+![Airflow](./screenshots/airflow-dags.png)
+
+- There are some connections have to be configured inside Airflow:
+  - Connection with access to local file system (need for FileSensor operator), connection_id: `local-file-system`
+  - Connection with access to Google Services (need for BigQueryOperator), connection_id: `gcp-de-zoomcamp-sa`
+- Trigger dag and check the updated Looker Studio [dashboard](https://lookerstudio.google.com/reporting/2744708c-a405-4b97-82a6-205c0cd78016/page/ilrND).
